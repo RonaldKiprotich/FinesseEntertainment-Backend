@@ -21,8 +21,7 @@ class User(AbstractUser):
 class Profile(models.Model):
     
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    # profilephoto = CloudinaryField('image')
-    # contact = models.IntegerField(null=True)
+    
    
     
 

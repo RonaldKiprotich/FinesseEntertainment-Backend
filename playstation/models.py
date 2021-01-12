@@ -10,13 +10,19 @@ from cloudinary.models import CloudinaryField
 
 
 # Create your models here.
+class User(AbstractUser):
+    profilephoto = CloudinaryField('image')
+    contact = models.IntegerField(null=True)
+   
+    
+
 
 
 class Profile(models.Model):
     
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    profilephoto = CloudinaryField('image')
-    contact = models.IntegerField(null=True)
+    # profilephoto = CloudinaryField('image')
+    # contact = models.IntegerField(null=True)
    
     
 

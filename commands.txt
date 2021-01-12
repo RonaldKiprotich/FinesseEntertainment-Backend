@@ -1,0 +1,6 @@
+python3 -m venv virtual
+pip install django
+django-admin startproject play .
+django-admin startapp playstation
+pip install djangorestframework 
+pip install django-rest-knox

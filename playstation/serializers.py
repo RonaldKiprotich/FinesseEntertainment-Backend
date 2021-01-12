@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+
 from django.contrib.auth import authenticate
-from .models import Profile
+from .models import *
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,9 +54,12 @@ class ChangePasswordSerializer(serializers.Serializer):
 class ProfileSerializer(serializers.ModelSerializer):
     username= serializers.ReadOnlyField(source='user.username')
     email= serializers.ReadOnlyField(source='user.email')
+    profilephoto= serializers.ImageField(source='user.profilephoto')
+    contact= serializers.ReadOnlyField(source='user.contact')
+    
     
     class Meta:
         model = Profile
-        fields = ('username','email','contact', 'profilephoto')
+        fields = ('username','email','profilephoto','contact')
         
     

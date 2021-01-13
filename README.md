@@ -2,20 +2,30 @@
 This is the backend application for the FINESSE ENT website.
 FINESSE ENT is a web application in which a user can book gaming consoles for rent for a particular time . The user can also book to participate in a tournament in which there are Prices to be won.
 
-# Live Link:
+# FrontEnd Live Link:
 
 [FINESSE ENT](https://pwambui2020.github.io/playstation-frontend/)
 
-#  Author: 
-[Abdihakim Muhumed](https://github.com/Abdihakim-muhumed)
+# BackEnd Live Link
+
+[FINESSE ENT](https://finessent12.herokuapp.com/)
+
+
+# Backend Technologies
+* Python3.8
+* Django
+* Django rest frame-work for end points
+* PostgreSQL
+* Postman for visual representation while building the api
+
 
 # Frontend Technologies
 
- 2.HTML
- 3.CSS
- 4.JAVASCRIPT
- 5.BOOTSTRAP
- 6.GITHUB(for deployment)
+ 1.HTML
+ 2.CSS
+ 3.JAVASCRIPT
+ 4.BOOTSTRAP
+ 5.GITHUB(for deployment)
 
 # Support and Contact:
 For any inquiries about FINESSE ENT feel free to contact any of the contributers on github :
@@ -32,4 +42,4 @@ For any inquiries about FINESSE ENT feel free to contact any of the contributers
 
 ## License
 * [[License: MIT]](LICENSE.md)
-* Copyright (c) 2020 **Finesse Entertainment**
+* Copyright (c) 2021 **Finesse Entertainment**

@@ -38,7 +38,7 @@ class Booking(models.Model):
     nickname = models.CharField(blank=True, max_length=150) 
     email = models.CharField(blank=True, max_length=150)
     payment = models.IntegerField(blank=True, default=1)
-    dot = models.IntegerField(blank=True,null=True)
+  
     gender = models.CharField(blank=True, max_length=50)
     
     

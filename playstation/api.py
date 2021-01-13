@@ -1,4 +1,3 @@
-
 from .serializers import CreateUserSerializer, UserSerializer, LoginUserSerializer, BookingUserSerializer,ChangePasswordSerializer
 from rest_framework import viewsets, permissions, generics,status
 from rest_framework.response import Response
@@ -8,7 +7,7 @@ from knox.models import AuthToken
 from knox.settings import knox_settings
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
-from .models import User
+from .models import User, Booking
 
 
 class RegistrationAPI(generics.GenericAPIView):
@@ -45,15 +44,25 @@ class BookingAPI(generics.GenericAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     serializer_class = BookingUserSerializer
-
-
-    def post(self, request, *args, **kwargs):
-       
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+    
+    def get(self, request):
+        booking = Booking.objects.all()
+        if booking:
+            serializer = BookingUserSerializer(booking, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)  
+        return Response({'failed': 'No records'})
+    
+    def post(self, request):
+        context = {'request':request}
         
-        booking = serializer.validated_data
-        return Response(booking)
+        serializers = BookingUserSerializer(data=request.data,context=context)
+        
+        if serializers.is_valid():
+            book = serializers.save()
+
+            return Response(serializers.data, status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 class UserAPI(generics.RetrieveAPIView):
     #permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = UserSerializer

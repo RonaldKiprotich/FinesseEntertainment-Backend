@@ -1,5 +1,5 @@
 # FINESSE ENT
-This is the frontend application for the FINESSE ENT website.
+This is the backend application for the FINESSE ENT website.
 FINESSE ENT is a web application in which a user can book gaming consoles for rent for a particular time . The user can also book to participate in a tournament in which there are Prices to be won.
 
 # Live Link:
@@ -9,7 +9,8 @@ FINESSE ENT is a web application in which a user can book gaming consoles for re
 #  Author: 
 [Abdihakim Muhumed](https://github.com/Abdihakim-muhumed)
 
-# Technologies
+# Frontend Technologies
+
  2.HTML
  3.CSS
  4.JAVASCRIPT

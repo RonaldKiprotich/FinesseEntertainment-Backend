@@ -22,14 +22,10 @@ class Profile(models.Model):
     
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     # profilephoto = CloudinaryField('image')
-    # contact = models.IntegerField(null=True)
-   
-    
+    # contact = models.IntegerField(null=True)    
 
     def __str__(self):
         return self.user.username
-
-
     
     def save_profile(self):
         self.user
@@ -42,6 +38,10 @@ class Booking(models.Model):
     fullname = models.CharField(blank=True, max_length=150)
     nickname = models.CharField(blank=True, max_length=150) 
     email = models.CharField(blank=True, max_length=150)
+    payment = models.IntegerField(blank=True, default=1)
+    dot = models.IntegerField(blank=True,null=True)
+    gender = models.CharField(blank=True, max_length=50)
+    
     
 
 

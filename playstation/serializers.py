@@ -29,17 +29,24 @@ class LoginUserSerializer(serializers.Serializer):
         raise serializers.ValidationError("error 400 Bad request.Invalid Details, key in the correct credentials.")
 
     
-class BookingUserSerializer(serializers.Serializer):
-  
-    fullname = serializers.CharField()
-    nickname = serializers.CharField()
-    email = serializers.CharField()    
+class BookingUserSerializer(serializers.ModelSerializer):
+    user= serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), default=serializers.CurrentUserDefault())
+          
+    class Meta:
+        model = Booking
+        # fields = ('id', 'user', 'fullname', 'nickname', 'email')
+        fields = '__all__' 
+        
       
-    def create(self, validated_data):
-        print(request.user)
+    def create(self, validate_data):
+        user =  self.context['request'].user
+        print(user)              
+             
         booking = Booking(**validate_data)
-        booking.save()
+        booking.user=user
+        booking.save()        
         return booking
+    
 
 
 class ChangePasswordSerializer(serializers.Serializer):

@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'cloudinary',
     'playstation.apps.PlaystationConfig',
+    'django_rest_passwordreset',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +120,8 @@ WSGI_APPLICATION = 'play.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
     
-    "http://127.0.0.1:5500"
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:5501",
 ]
 
 # Database
@@ -194,3 +196,11 @@ cloudinary.config(
   api_key = "727621331229864", 
   api_secret = "QhNCwOHAnYWbilesfLhTqbwL2Io" 
 )
+
+# Email
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIT_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'

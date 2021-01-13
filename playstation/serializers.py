@@ -6,17 +6,19 @@ from .models import *
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'email', 'password')
+        fields = ('id', 'first_name', 'last_name', 'username', 'email','profilephoto', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], None,validated_data['password'])
+        user = User(first_name=validated_data['first_name'], last_name=validated_data['last_name'], username=validated_data['username'], email=validated_data['email'],profilephoto=validated_data['profilephoto'])
+        user.set_password(validated_data['password'])
+        user.save()
         return user
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email',)
+        fields = ('id', 'username', 'first_name', 'last_name','profilephoto', 'email')
         
 class LoginUserSerializer(serializers.Serializer):
     username = serializers.CharField()

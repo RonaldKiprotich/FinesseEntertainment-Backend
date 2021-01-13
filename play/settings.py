@@ -12,10 +12,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import cloudinary
+import django_heroku
 import cloudinary.uploader
 import cloudinary.api
 import dj_database_url
 from decouple import config,Csv
+
 
 
 
@@ -35,7 +37,16 @@ if config('MODE')=="dev":
        }
        
    }
+# production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
 
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,7 +61,6 @@ SECRET_KEY = '^bqafr)0_6kw9(sf!+l-5tljvgjzo-((zws1-t$u!g&2d*!#xu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'playstation.User'
 
@@ -72,6 +82,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'cloudinary',
     'playstation.apps.PlaystationConfig',
+    'django_rest_passwordreset',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +94,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     
 ]
 
@@ -108,7 +120,8 @@ WSGI_APPLICATION = 'play.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
     
-    "http://127.0.0.1:5500"
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:5501",
 ]
 
 # Database
@@ -143,7 +156,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -155,6 +168,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# configuring the location for media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
+
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 STATIC_URL = '/static/'
 
 cloudinary.config( 
@@ -162,3 +196,11 @@ cloudinary.config(
   api_key = "727621331229864", 
   api_secret = "QhNCwOHAnYWbilesfLhTqbwL2Io" 
 )
+
+# Email
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIT_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
